@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gamepad to ESP32 Controller - Project Viewer</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        header {
+            background: linear-gradient(135deg, #103F91, #4CAF50);
+            color: white;
+            padding: 1em;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        h1, h2, h3 {
+            color: #103F91;
+        }
+        header h1 {
+            color: white;
+            margin: 0;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .sidebar {
+            flex: 1;
+            min-width: 250px;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .main-content {
+            flex: 3;
+            min-width: 300px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .file-tree {
+            list-style-type: none;
+            padding-left: 15px;
+        }
+        .file-tree li {
+            margin: 5px 0;
+            cursor: pointer;
+        }
+        .file-tree li:hover {
+            color: #4CAF50;
+        }
+        .folder {
+            font-weight: bold;
+            color: #103F91;
+        }
+        .file {
+            color: #666;
+        }
+        .file.kotlin {
+            color: #7F52FF;
+        }
+        .file.xml {
+            color: #F44336;
+        }
+        .file.gradle {
+            color: #02303A;
+        }
+        pre {
+            background-color: #f8f8f8;
+            border-left: 4px solid #4CAF50;
+            padding: 15px;
+            overflow-x: auto;
+            line-height: 1.5;
+            border-radius: 4px;
+        }
+        code {
+            font-family: 'Courier New', Courier, monospace;
+        }
+        .btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn:hover {
+            background-color: #3e8e41;
+        }
+        .steps {
+            background-color: #f1f8e9;
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 20px;
+        }
+        .steps ol {
+            margin-left: 20px;
+            padding-left: 0;
+        }
+        .steps li {
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Gamepad to ESP32 Controller</h1>
+        <p>Android app that reads USB gamepad input and transmits formatted joystick data to an ESP32 via Bluetooth Classic</p>
+    </header>
+
+    <div class="container">
+        <div class="sidebar">
+            <h2>Project Files</h2>
+            <ul class="file-tree">
+                <li class="folder">app/</li>
+                <ul class="file-tree">
+                    <li class="folder">src/main/</li>
+                    <ul class="file-tree">
+                        <li class="folder">java/com/gamepadbt/</li>
+                        <ul class="file-tree">
+                            <li class="file kotlin" onclick="showFile('MainActivity')">MainActivity.kt</li>
+                            <li class="file kotlin" onclick="showFile('BluetoothService')">BluetoothService.kt</li>
+                            <li class="file kotlin" onclick="showFile('GamepadHandler')">GamepadHandler.kt</li>
+                        </ul>
+                        <li class="folder">res/layout/</li>
+                        <ul class="file-tree">
+                            <li class="file xml" onclick="showFile('activity_main')">activity_main.xml</li>
+                        </ul>
+                        <li class="file xml" onclick="showFile('AndroidManifest')">AndroidManifest.xml</li>
+                    </ul>
+                    <li class="file gradle" onclick="showFile('app_build_gradle')">build.gradle</li>
+                </ul>
+                <li class="file gradle" onclick="showFile('project_build_gradle')">build.gradle</li>
+                <li class="file markdown" onclick="showFile('README')">README.md</li>
+                <li class="file markdown" onclick="showFile('ARCHITECTURE')">ARCHITECTURE.md</li>
+            </ul>
+            
+            <a href="https://github.com/user/gamepad-to-esp32-controller/archive/main.zip" class="btn">Download Project</a>
+        </div>
+
+        <div class="main-content">
+            <div id="fileContent">
+                <h2>Gamepad to ESP32 Controller</h2>
+                <p>This project provides an Android application that connects to a USB gamepad and transmits joystick data to an ESP32 microcontroller via Bluetooth Classic.</p>
+                
+                <h3>Features</h3>
+                <ul>
+                    <li>Reads input from USB gamepads connected to Android phone</li>
+                    <li>Connects to ESP32 via Bluetooth Classic (SPP)</li>
+                    <li>Transmits formatted joystick data: <code>R:&lt;lx&gt; A:&lt;rx&gt; E:&lt;-ry&gt;</code></li>
+                    <li>Value range: -100 to 100</li>
+                    <li>Visual joystick position display</li>
+                    <li>Material Design UI with card-based layout</li>
+                    <li>Automatic reconnection if connection is lost</li>
+                </ul>
+
+                <div class="steps">
+                    <h3>How to Build the APK</h3>
+                    <ol>
+                        <li>Click the "Download Project" button above</li>
+                        <li>Extract the downloaded ZIP file</li>
+                        <li>Open the project in Android Studio</li>
+                        <li>Click Build → Build Bundle(s) / APK(s) → Build APK(s)</li>
+                        <li>Find the APK in <code>app/build/outputs/apk/debug/app-debug.apk</code></li>
+                        <li>Transfer the APK to your Android device and install it</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // File content samples
+        const fileContents = {
+            'MainActivity': `package com.gamepadbt
+
+import android.Manifest
+import android.bluetooth.BluetoothAdapter
+import android.bluetooth.BluetoothDevice
+import android.bluetooth.BluetoothManager
+import android.content.Context
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
+import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.view.InputDevice
+import android.view.MotionEvent
+import android.view.View
+import android.widget.Button
+import android.widget.TextView
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintSet
+
+class MainActivity : AppCompatActivity() {
+    private lateinit var connectButton: Button
+    private lateinit var statusText: TextView
+    private lateinit var leftXText: TextView
+    private lateinit var rightXText: TextView
+    private lateinit var rightYText: TextView
+    private lateinit var rightXYText: TextView
+    private lateinit var transmitText: TextView
+    
+    // Joystick visualization
+    private lateinit var leftJoystickIndicator: View
+    private lateinit var rightJoystickIndicator: View
+    private lateinit var leftJoystickContainer: View
+    private lateinit var rightJoystickContainer: View
+
+    private lateinit var bluetoothService: BluetoothService
+    private lateinit var gamepadHandler: GamepadHandler
+
+    private var isConnected = false
+    private val handler = Handler(Looper.getMainLooper())
+    private val updateInterval = 50L // 20 times per second (1000ms / 20 = 50ms)
+
+    // ... rest of the code
+}`,
+            'BluetoothService': `package com.gamepadbt
+
+import android.bluetooth.BluetoothAdapter
+import android.bluetooth.BluetoothDevice
+import android.bluetooth.BluetoothSocket
+import android.util.Log
+import java.io.IOException
+import java.io.OutputStream
+import java.util.UUID
+
+class BluetoothService(
+    private val bluetoothAdapter: BluetoothAdapter,
+    private val callback: ConnectionCallback
+) {
+    // UUID for Serial Port Profile (SPP)
+    private val SPP_UUID: UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB")
+    
+    private var socket: BluetoothSocket? = null
+    private var outputStream: OutputStream? = null
+    private var connectedDevice: BluetoothDevice? = null
+    private var connectionThread: Thread? = null
+    
+    // ... rest of the code
+}`,
+            'GamepadHandler': `package com.gamepadbt
+
+import android.view.InputDevice
+import android.view.MotionEvent
+import kotlin.math.abs
+
+class GamepadHandler {
+    // Range values are -100 to 100
+    var leftX: Int = 0
+    var rightX: Int = 0
+    var rightY: Int = 0
+    
+    // Joystick dead zone (values below this are considered as 0)
+    private val deadzone = 0.05f
+    
+    // ... rest of the code
+}`,
+            'activity_main': `<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:padding="16dp"
+    android:background="#F0F0F0">
+
+    <!-- ... UI elements ... -->
+</androidx.constraintlayout.widget.ConstraintLayout>`,
+            'AndroidManifest': `<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.gamepadbt">
+
+    <!-- Bluetooth permissions -->
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+    <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
+    
+    <!-- For older Android versions -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <!-- ... rest of the manifest ... -->
+</manifest>`,
+            'app_build_gradle': `plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+}
+
+android {
+    compileSdk 33
+
+    defaultConfig {
+        applicationId "com.gamepadbt"
+        minSdk 21
+        targetSdk 33
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    // ... rest of the gradle file ...
+}`,
+            'project_build_gradle': `// Top-level build file where you can add configuration options common to all sub-projects/modules.
+plugins {
+    id 'com.android.application' version '7.2.1' apply false
+    id 'com.android.library' version '7.2.1' apply false
+    id 'org.jetbrains.kotlin.android' version '1.7.10' apply false
+}`,
+            'README': `# Gamepad to ESP32 Controller
+
+An Android app that reads USB gamepad input and transmits formatted joystick data to an ESP32 via Bluetooth Classic.
+
+## Features
+
+- Connects to ESP32 via Bluetooth Classic (SPP)
+- Reads input from USB gamepads connected to Android phone
+- Transmits formatted joystick data: \`R:<lx> A:<rx> E:<-ry>\`
+- Value range: -100 to 100
+- Visual joystick position display
+- Automatic reconnection
+- Debug information display
+- Material Design UI with card-based layout
+
+... (rest of the README) ...`,
+            'ARCHITECTURE': `# App Architecture
+
+This document outlines the architecture of the Gamepad to ESP32 Controller app.
+
+## Component Diagram
+
+\`\`\`
+                        +------------------+
+                        |   MainActivity   |
+                        |------------------|
+                        | - UI Management  |
+                        | - Event Handling |
+                        | - Data Scheduler |
+                        +--------+---------+
+                                 |
+                   +-------------+-------------+
+                   |                           |
+        +----------v-----------+    +---------v-----------+
+        |   GamepadHandler     |    |   BluetoothService  |
+        |----------------------|    |---------------------|
+        | - Joystick Reading   |    | - BT Connection     |
+        | - Input Processing   |    | - Data Transmission |
+        | - Value Scaling      |    | - Auto-reconnection |
+        +----------------------+    +---------------------+
+                   |                           |
+                   v                           v
+          +------------------+       +-------------------+
+          | USB Gamepad Input|       | ESP32 Device      |
+          +------------------+       +-------------------+
+\`\`\`
+
+... (rest of the architecture document) ...`
+        };
+
+        function showFile(fileKey) {
+            const content = fileContents[fileKey] || 'File content not available';
+            document.getElementById('fileContent').innerHTML = `<h2>${fileKey}</h2><pre><code>${content}</code></pre>`;
+        }
+    </script>
+</body>
+</html>
