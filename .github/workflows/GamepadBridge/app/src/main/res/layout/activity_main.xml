@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:padding="16dp"
+    android:background="#F0F0F0">
+
+    <TextView
+        android:id="@+id/titleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Gamepad to ESP32 Controller"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="#103F91"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/statusCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleText">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/statusLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Connection Status:"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/statusText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="Disconnected"
+                android:textColor="#D32F2F"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/statusLabel"
+                app:layout_constraintTop_toTopOf="@+id/statusLabel" />
+
+            <Button
+                android:id="@+id/connectButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:backgroundTint="#4CAF50"
+                android:text="Connect"
+                android:textColor="#FFFFFF"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/statusLabel" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- Joystick Visualization Section -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/joystickCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/statusCard">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/joystickTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Joystick Visualization"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#103F91"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- Left Joystick Container -->
+            <View
+                android:id="@+id/leftJoystickContainer"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_marginTop="16dp"
+                android:background="@android:color/darker_gray"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/joystickTitle" />
+
+            <!-- Left Joystick Indicator -->
+            <View
+                android:id="@+id/leftJoystickIndicator"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:background="@android:color/holo_red_light"
+                app:layout_constraintBottom_toBottomOf="@+id/leftJoystickContainer"
+                app:layout_constraintEnd_toEndOf="@+id/leftJoystickContainer"
+                app:layout_constraintStart_toStartOf="@+id/leftJoystickContainer"
+                app:layout_constraintTop_toTopOf="@+id/leftJoystickContainer" />
+
+            <!-- Right Joystick Container -->
+            <View
+                android:id="@+id/rightJoystickContainer"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_marginTop="16dp"
+                android:background="@android:color/darker_gray"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/joystickTitle" />
+
+            <!-- Right Joystick Indicator -->
+            <View
+                android:id="@+id/rightJoystickIndicator"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:background="@android:color/holo_blue_light"
+                app:layout_constraintBottom_toBottomOf="@+id/rightJoystickContainer"
+                app:layout_constraintEnd_toEndOf="@+id/rightJoystickContainer"
+                app:layout_constraintStart_toStartOf="@+id/rightJoystickContainer"
+                app:layout_constraintTop_toTopOf="@+id/rightJoystickContainer" />
+
+            <TextView
+                android:id="@+id/leftJoystickLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Left Joystick (lx)"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/leftJoystickContainer"
+                app:layout_constraintStart_toStartOf="@+id/leftJoystickContainer"
+                app:layout_constraintTop_toBottomOf="@+id/leftJoystickContainer" />
+
+            <TextView
+                android:id="@+id/rightJoystickLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Right Joystick (rx, ry)"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/rightJoystickContainer"
+                app:layout_constraintStart_toStartOf="@+id/rightJoystickContainer"
+                app:layout_constraintTop_toBottomOf="@+id/rightJoystickContainer" />
+
+            <TextView
+                android:id="@+id/leftXValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="0"
+                android:textColor="#000000"
+                app:layout_constraintEnd_toEndOf="@+id/leftJoystickLabel"
+                app:layout_constraintStart_toStartOf="@+id/leftJoystickLabel"
+                app:layout_constraintTop_toBottomOf="@+id/leftJoystickLabel" />
+
+            <TextView
+                android:id="@+id/rightXYValues"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="X: 0, Y: 0"
+                android:textColor="#000000"
+                app:layout_constraintEnd_toEndOf="@+id/rightJoystickLabel"
+                app:layout_constraintStart_toStartOf="@+id/rightJoystickLabel"
+                app:layout_constraintTop_toBottomOf="@+id/rightJoystickLabel" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- Data Transmission Section -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/dataTransmissionCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/joystickCard">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/dataTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Transmission Data"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#103F91"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/rightXLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Right X (rx):"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dataTitle" />
+
+            <TextView
+                android:id="@+id/rightXValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="0"
+                app:layout_constraintBaseline_toBaselineOf="@+id/rightXLabel"
+                app:layout_constraintStart_toEndOf="@+id/rightXLabel" />
+
+            <TextView
+                android:id="@+id/rightYLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Right Y (ry):"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rightXLabel" />
+
+            <TextView
+                android:id="@+id/rightYValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="0"
+                app:layout_constraintBaseline_toBaselineOf="@+id/rightYLabel"
+                app:layout_constraintStart_toEndOf="@+id/rightYLabel" />
+
+            <TextView
+                android:id="@+id/transmitLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Formatted Data:"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rightYLabel" />
+
+            <TextView
+                android:id="@+id/transmitValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="R:0 A:0 E:0"
+                android:textColor="#103F91"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/transmitLabel" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- Instructions Card -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/instructionsCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dataTransmissionCard">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/instructionsTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Instructions"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#103F91"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/instructionsText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="1. Connect a USB gamepad to your Android device\n2. Press the Connect button to establish Bluetooth connection with ESP32\n3. Move the joysticks to transmit data\n\nData Format: R:(Left X) A:(Right X) E:(-Right Y)"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/instructionsTitle" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
